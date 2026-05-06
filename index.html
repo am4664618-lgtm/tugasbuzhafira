@@ -1,0 +1,1563 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maison Veloura - Premium Fragrance Collection</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 50%, #2d1b69 100%);
+      background-attachment: fixed;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Animated background particles */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        radial-gradient(2px 2px at 20px 30px, #eee, transparent),
+        radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
+        radial-gradient(1px 1px at 90px 40px, #fff, transparent),
+        radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.6), transparent);
+      background-repeat: repeat;
+      background-size: 200px 100px;
+      animation: float 20s infinite linear;
+      z-index: -1;
+      opacity: 0.1;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px) rotate(0deg); }
+      100% { transform: translateY(-100px) rotate(360deg); }
+    }
+
+    /* HEADER */
+    header {
+      background: rgba(15, 15, 15, 0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding: 1rem 0;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+
+    .navbar {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #ffd700, #ffed4e, #ffffff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: 2px;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .home-btn, .cart-btn {
+      text-decoration: none;
+      color: #ffffff;
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,255,255,0.1));
+      border: 1px solid rgba(255,215,0,0.3);
+      font-weight: 500;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .cart-btn {
+      position: relative;
+      background: rgba(39, 174, 96, 0.2);
+      border-color: rgba(39, 174, 96, 0.4);
+    }
+
+    .cart-btn:hover {
+      background: linear-gradient(135deg, rgba(255,215,0,0.3), rgba(255,255,255,0.2));
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(255,215,0,0.3);
+    }
+
+    .menu-btn {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: white;
+      padding: 0.8rem 1.2rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .menu-btn:hover {
+      background: rgba(255,255,255,0.2);
+      transform: scale(1.05);
+    }
+
+    .dropdown {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      min-width: 200px;
+      overflow: hidden;
+      margin-top: 1rem;
+      display: none;
+    }
+
+    .dropdown a {
+      display: block;
+      padding: 1rem 1.5rem;
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .dropdown a:hover {
+      background: linear-gradient(135deg, #ffd700, #ffed4e);
+      color: #000;
+      padding-left: 2rem;
+    }
+
+    /* HERO SECTION - DIPANJANG 700px */
+    .hero {
+      min-height: 700px;
+      display: flex;
+      align-items: center;
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(0,0,0,0.6), rgba(45,27,105,0.4));
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      flex: 1;
+      padding-right: 4rem;
+      max-width: 50%;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      text-shadow: 0 0 30px rgba(255,215,0,0.5);
+    }
+
+    .hero h1 span {
+      background: linear-gradient(135deg, #ffd700, #ffed4e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 1.3rem;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 2rem;
+      font-weight: 300;
+      max-width: 500px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-explore {
+      padding: 1.2rem 3rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 50px;
+      background: linear-gradient(135deg, #ffd700, #ffed4e);
+      color: #000;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(255,215,0,0.4);
+    }
+
+    .btn-explore:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(255,215,0,0.6);
+    }
+
+    /* CAROUSEL - FULL WIDTH RESPONSIVE */
+    .carousel-container {
+      width: 100%;
+      height: 350px;
+      margin: 0;
+      overflow: hidden;
+      position: relative;
+      border-radius: 15px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+      z-index: 2;
+      flex: 1;
+      max-width: 50%;
+    }
+
+    .slides {
+      display: flex;
+      transition: transform 0.5s ease;
+      height: 350px;
+      width: 300%; /* 3 slides = 300% */
+    }
+
+    .slides img {
+      width: 33.333%; /* Setiap slide 1/3 dari total width */
+      height: 350px;
+      flex-shrink: 0;
+      object-fit: cover;
+      border-radius: 15px;
+      transition: transform 0.5s ease;
+    }
+
+    .slides img:hover {
+      transform: scale(1.05);
+    }
+
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(10px);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.3);
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 3;
+    }
+
+    .carousel-btn:hover {
+      background: rgba(255,255,255,0.3);
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .prev { left: 10px; }
+    .next { right: 10px; }
+
+    /* SEARCH BAR */
+    .search-section {
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(20px);
+      padding: 2rem 0;
+      margin: 3rem 0;
+      border-radius: 30px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    }
+
+    .search-bar input {
+      width: 100%;
+      padding: 1.2rem 2rem;
+      font-size: 1.1rem;
+      border: 2px solid rgba(0,0,0,0.1);
+      border-radius: 50px;
+      outline: none;
+      background: rgba(255,255,255,0.9);
+      transition: all 0.3s ease;
+    }
+
+    .search-bar input:focus {
+      border-color: #ffd700;
+      box-shadow: 0 0 0 4px rgba(255,215,0,0.1);
+      transform: scale(1.02);
+    }
+
+    /* KATEGORI SCENT - FULL ANIMATED VERSION */
+    .scent-categories {
+      max-width: 1600px;
+      margin: 4rem auto;
+      padding: 3rem 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(20px);
+      border-radius: 30px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+      position: relative;
+    }
+
+    .scent-categories::before {
+      content: 'Pilih Sesuai Mood Kamu';
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, #ffd700, #ffed4e);
+      color: #000;
+      padding: 0.8rem 2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      box-shadow: 0 10px 30px rgba(255,215,0,0.4);
+    }
+
+    .scent-item {
+      text-align: center;
+      cursor: pointer;
+      padding: 2rem 1rem;
+      transition: all 0.4s ease;
+      border-radius: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .scent-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.5s;
+    }
+
+    .scent-item:hover::before {
+      left: 100%;
+    }
+
+    .scent-item:hover {
+      transform: translateY(-15px) scale(1.05);
+      background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(255,255,255,0.2));
+      box-shadow: 0 25px 60px rgba(255,215,0,0.3);
+    }
+
+    .scent-item.active {
+      background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,255,255,0.3));
+      border: 2px solid #ffd700;
+    }
+
+    .scent-icon {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin: 0 auto 1rem;
+      object-fit: cover;
+      border: 4px solid rgba(255,255,255,0.8);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      color: #ffd700;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .scent-item:hover .scent-icon {
+      border-color: #ffd700;
+      transform: scale(1.1) rotate(10deg);
+      box-shadow: 0 25px 60px rgba(255,215,0,0.4);
+    }
+
+    .scent-item h3 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 0.5rem;
+    }
+
+    .scent-item p {
+      color: #666;
+      font-weight: 500;
+    }
+
+    /* ================================
+       FRESH - ICE/SNOW ANIMATION 
+       ================================ */
+    .scent-item[data-scent="fresh"] .scent-icon {
+      background: linear-gradient(135deg, 
+        rgba(173,216,230,0.3) 0%, 
+        rgba(255,255,255,0.2) 50%, 
+        rgba(135,206,250,0.3) 100%);
+      color: #00bfff;
+      border: 4px solid rgba(135,206,250,0.6);
+    }
+
+    .scent-item[data-scent="fresh"] .scent-icon::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px);
+      background-size: 20px 20px;
+      animation: snowFall 3s infinite linear;
+      opacity: 0.6;
+    }
+
+    .scent-item[data-scent="fresh"] .scent-icon::after {
+      content: '❄️';
+      position: absolute;
+      font-size: 1.8rem;
+      top: 10px;
+      right: 10px;
+      animation: sparkle 2s infinite ease-in-out;
+      filter: drop-shadow(0 0 5px rgba(135,206,250,0.8));
+    }
+
+    /* ================================
+       MANIS - HEART/SWEET ANIMATION 
+       ================================ */
+    .scent-item[data-scent="manis"] .scent-icon {
+      background: linear-gradient(135deg, 
+        rgba(255,182,193,0.4) 0%, 
+        rgba(255,255,255,0.2) 50%, 
+        rgba(255,105,180,0.3) 100%);
+      color: #ff69b4;
+      border: 4px solid rgba(255,192,203,0.7);
+    }
+
+    .scent-item[data-scent="manis"] .scent-icon::before {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: rgba(255,105,180,0.6);
+      border-radius: 50% 0;
+      top: 15px;
+      right: 15px;
+      animation: heartBeat 1.5s infinite ease-in-out;
+    }
+
+    .scent-item[data-scent="manis"] .scent-icon::after {
+      content: '💖';
+      position: absolute;
+      font-size: 1.5rem;
+      bottom: 10px;
+      left: 10px;
+      animation: sweetFloat 3s infinite ease-in-out;
+      filter: drop-shadow(0 0 5px rgba(255,105,180,0.8));
+    }
+
+    /* ================================
+       SIANG - SUN/SHINE ANIMATION 
+       ================================ */
+    .scent-item[data-scent="siang"] .scent-icon {
+      background: linear-gradient(135deg, 
+        rgba(255,255,224,0.4) 0%, 
+        rgba(255,255,255,0.3) 50%, 
+        rgba(255,215,0,0.3) 100%);
+      color: #ffd700;
+      border: 4px solid rgba(255,215,0,0.6);
+    }
+
+    .scent-item[data-scent="siang"] .scent-icon::before {
+      content: '';
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background: radial-gradient(circle, rgba(255,255,0,0.9) 20%, transparent 50%);
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: sunRay 2s infinite linear;
+      box-shadow: 0 0 20px rgba(255,215,0,0.8);
+    }
+
+    .scent-item[data-scent="siang"] .scent-icon::after {
+      content: '☀️';
+      position: absolute;
+      font-size: 1.6rem;
+      bottom: 8px;
+      right: 8px;
+      animation: sunPulse 2.5s infinite ease-in-out;
+      filter: drop-shadow(0 0 8px rgba(255,215,0,1));
+    }
+
+    /* ================================
+       MALAM - MOON/MYSTERY ANIMATION 
+       ================================ */
+    .scent-item[data-scent="malam"] .scent-icon {
+      background: linear-gradient(135deg, 
+        rgba(75,0,130,0.4) 0%, 
+        rgba(255,255,255,0.1) 50%, 
+        rgba(138,43,226,0.3) 100%);
+      color: #8a2be2;
+      border: 4px solid rgba(147,0,255,0.6);
+    }
+
+    .scent-item[data-scent="malam"] .scent-icon::before {
+      content: '';
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      border: 3px solid rgba(255,255,255,0.8);
+      border-radius: 50%;
+      top: 15px;
+      left: 15px;
+      animation: moonGlow 3s infinite ease-in-out;
+      box-shadow: 0 0 15px rgba(255,255,255,0.6);
+    }
+
+    .scent-item[data-scent="malam"] .scent-icon::after {
+      content: '🌙';
+      position: absolute;
+      font-size: 1.7rem;
+      bottom: 12px;
+      right: 12px;
+      animation: moonFloat 4s infinite ease-in-out;
+      filter: drop-shadow(0 0 6px rgba(138,43,226,0.9));
+    }
+
+    /* ================================
+       ANIMATIONS 
+       ================================ */
+    @keyframes snowFall {
+      0% { transform: translateY(0px) rotate(0deg); }
+      100% { transform: translateY(50px) rotate(360deg); }
+    }
+
+    @keyframes sparkle {
+      0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+      50% { transform: scale(1.2) rotate(180deg); opacity: 0.7; }
+    }
+
+    @keyframes heartBeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.3); }
+    }
+
+    @keyframes sweetFloat {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      33% { transform: translateY(-8px) rotate(10deg); }
+      66% { transform: translateY(-3px) rotate(-5deg); }
+    }
+
+    @keyframes sunRay {
+      0% { transform: translateX(-50%) rotate(0deg) scale(1); }
+      50% { transform: translateX(-50%) rotate(180deg) scale(1.1); }
+      100% { transform: translateX(-50%) rotate(360deg) scale(1); }
+    }
+
+    @keyframes sunPulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.15); opacity: 0.8; }
+    }
+
+    @keyframes moonGlow {
+      0%, 100% { box-shadow: 0 0 15px rgba(255,255,255,0.6); }
+      50% { box-shadow: 0 0 30px rgba(255,255,255,0.9), 0 0 40px rgba(138,43,226,0.5); }
+    }
+
+    @keyframes moonFloat {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      25% { transform: translateY(-10px) rotate(5deg); }
+      50% { transform: translateY(-5px) rotate(-3deg); }
+      75% { transform: translateY(-8px) rotate(2deg); }
+    }
+
+    /* HOVER EFFECTS FOR ALL CATEGORIES */
+    .scent-item[data-scent="fresh"]:hover .scent-icon {
+      background: linear-gradient(135deg, 
+        rgba(0,191,255,0.4) 0%, 
+        rgba(255,255,255,0.3) 50%, 
+        rgba(173,216,230,0.5) 100%);
+      box-shadow: 
+        0 0 30px rgba(0,191,255,0.6),
+        inset 0 0 20px rgba(255,255,255,0.3);
+      border: 4px solid rgba(0,191,255,0.8);
+    }
+
+    .scent-item[data-scent="manis"]:hover .scent-icon {
+      background: linear-gradient(135deg, 
+        rgba(255,20,147,0.5) 0%, 
+        rgba(255,255,255,0.3) 50%, 
+        rgba(255,182,193,0.4) 100%);
+      box-shadow: 
+        0 0 30px rgba(255,20,147,0.6),
+        inset 0 0 20px rgba(255,255,255,0.3);
+      border: 4px solid rgba(255,20,147,0.8);
+    }
+
+    .scent-item[data-scent="siang"]:hover .scent-icon {
+      background: linear-gradient(135deg, 
+        rgba(255,140,0,0.5) 0%, 
+        rgba(255,255,255,0.4) 50%, 
+        rgba(255,255,0,0.4) 100%);
+      box-shadow: 
+        0 0 40px rgba(255,215,0,0.8),
+        inset 0 0 25px rgba(255,255,255,0.4);
+      border: 4px solid rgba(255,140,0,0.8);
+    }
+
+    .scent-item[data-scent="malam"]:hover .scent-icon {
+      background: linear-gradient(135deg, 
+        rgba(148,0,211,0.5) 0%, 
+        rgba(255,255,255,0.2) 50%, 
+        rgba(75,0,130,0.4) 100%);
+      box-shadow: 
+        0 0 35px rgba(148,0,211,0.7),
+        inset 0 0 25px rgba(255,255,255,0.3);
+      border: 4px solid rgba(148,0,211,0.8);
+    }
+
+    /* ACTIVE STATES */
+    .scent-item[data-scent="fresh"].active .scent-icon,
+    .scent-item[data-scent="manis"].active .scent-icon,
+    .scent-item[data-scent="siang"].active .scent-icon,
+    .scent-item[data-scent="malam"].active .scent-icon {
+      box-shadow: 
+        0 0 40px currentColor,
+        inset 0 0 30px rgba(255,255,255,0.4);
+      border-width: 5px;
+      animation: activePulse 2s infinite;
+    }
+
+    @keyframes activePulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    /* PRODUCTS */
+    .products-section {
+      max-width: 1600px;
+      margin: 4rem auto;
+      padding: 0 2rem 4rem;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .product {
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(20px);
+      border-radius: 25px;
+      padding: 1.5rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      border: 1px solid rgba(255,255,255,0.2);
+      position: relative;
+      overflow: hidden;
+      height: 420px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #ffd700, #ffed4e, #ffd700);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+
+    .product:hover::before {
+      transform: scaleX(1);
+    }
+
+    .product:hover {
+      transform: translateY(-20px) scale(1.02);
+      box-shadow: 0 35px 80px rgba(0,0,0,0.4);
+      border-color: rgba(255,215,0,0.5);
+    }
+
+    .product img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 20px;
+      margin-bottom: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .product:hover img {
+      transform: scale(1.05);
+    }
+
+    .product h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 0.5rem;
+      height: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .product-price {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #ffd700;
+      margin-bottom: 1rem;
+    }
+
+    /* ABOUT */
+    .about-section {
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(20px);
+      margin: 6rem 2rem;
+      padding: 4rem;
+      border-radius: 30px;
+      text-align: center;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+    }
+
+    .about-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      background: linear-gradient(135deg, #333, #666);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 2rem;
+    }
+
+    /* MODAL */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(10px);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    .modal-content {
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(30px);
+      width: 100%;
+      max-width: 500px;
+      border-radius: 30px;
+      padding: 3rem;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+      animation: modalSlideIn 0.4s ease;
+    }
+
+    @keyframes modalSlideIn {
+      from { opacity: 0; transform: scale(0.8) translateY(50px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .close {
+      position: absolute;
+      top: 1.5rem;
+      right: 2rem;
+      font-size: 2rem;
+      cursor: pointer;
+      color: #999;
+      transition: all 0.3s ease;
+    }
+
+    .close:hover {
+      color: #ff4444;
+      transform: rotate(90deg);
+    }
+
+    .modal-content img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 20px;
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-content h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: #333;
+      margin-bottom: 1rem;
+    }
+
+    .modal-content button {
+      padding: 1rem 2rem;
+      margin: 0.5rem;
+      border: none;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+
+    .btn-cart {
+      background: linear-gradient(135deg, #27ae60, #2ecc71);
+      color: white;
+    }
+
+    .btn-buy {
+      background: linear-gradient(135deg, #ffd700, #ffed4e);
+      color: #000;
+      font-weight: 700;
+    }
+
+    .btn-cart:hover, .btn-buy:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1450px) {
+      .carousel-container {
+        width: 100%;
+        max-width: 100%;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        flex-direction: column;
+        text-align: center;
+        padding: 2rem 1rem;
+        min-height: 700px;
+      }
+      
+      .hero-content {
+        padding-right: 0;
+        margin-bottom: 2rem;
+        max-width: 100%;
+      }
+      
+      .carousel-container {
+        height: 250px;
+        width: 100%;
+        max-width: 100%;
+        margin-top: 2rem;
+      }
+      
+      .slides {
+        height: 250px;
+      }
+      
+      .slides img {
+        height: 250px;
+      }
+      
+      .scent-categories {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        padding: 2rem 1rem;
+      }
+      
+      .container {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1.5rem;
+      }
+    }
+
+    /* Hide products */
+    .product.hidden {
+      display: none;
+    }
+
+    /* FOOTER STYLES - TOKOPEDIA INSPIRED */
+.footer-section {
+  background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 50%, #2d1b69 100%);
+  color: #ffffff;
+  font-family: 'Poppins', sans-serif;
+  margin-top: 6rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.footer-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #ffd700, transparent);
+}
+
+.footer-main {
+  padding: 4rem 0 2rem;
+}
+
+.footer-container {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 3rem;
+}
+
+.logo-footer {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1rem;
+}
+
+.footer-brand p {
+  color: rgba(255,255,255,0.8);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.social-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.social-links a {
+  width: 45px;
+  height: 45px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.social-links a:hover {
+  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  color: #000;
+  transform: translateY(-3px) scale(1.1);
+  box-shadow: 0 10px 25px rgba(255,215,0,0.4);
+}
+
+.footer-links h4,
+.footer-contact h4,
+.footer-newsletter h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #ffffff;
+}
+
+.footer-links ul {
+  list-style: none;
+}
+
+.footer-links ul li {
+  margin-bottom: 0.8rem;
+}
+
+.footer-links ul li a {
+  color: rgba(255,255,255,0.8);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.footer-links ul li a:hover {
+  color: #ffd700;
+  padding-left: 0.5rem;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+  color: rgba(255,255,255,0.9);
+  font-weight: 500;
+}
+
+.contact-item i {
+  color: #ffd700;
+  font-size: 1.1rem;
+  width: 20px;
+}
+
+.newsletter-form {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.newsletter-input {
+  flex: 1;
+  padding: 0.8rem 1rem;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 25px;
+  background: rgba(255,255,255,0.1);
+  color: #ffffff;
+  outline: none;
+  backdrop-filter: blur(10px);
+  font-family: 'Poppins', sans-serif;
+}
+
+.newsletter-input::placeholder {
+  color: rgba(255,255,255,0.6);
+}
+
+.newsletter-btn {
+  padding: 0.8rem 1.5rem;
+  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  color: #000;
+  border: none;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.newsletter-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(255,215,0,0.4);
+}
+
+.footer-bottom {
+  background: rgba(0,0,0,0.3);
+  padding: 2rem 0;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.footer-container.bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.bottom-left p {
+  color: rgba(255,255,255,0.7);
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.bottom-right {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.payment-methods {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.payment-logo {
+  height: 30px;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.payment-logo:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+
+.certifications {
+  display: flex;
+  gap: 1rem;
+}
+
+.cert-badge {
+  background: rgba(39,174,96,0.2);
+  color: #27ae60;
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: 1px solid rgba(39,174,96,0.3);
+}
+
+/* RESPONSIVE FOOTER */
+@media (max-width: 768px) {
+  .footer-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    text-align: center;
+  }
+  
+  .footer-container.bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .bottom-right {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .newsletter-form {
+    flex-direction: column;
+  }
+  
+  .payment-methods {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-main {
+    padding: 2rem 0 1rem;
+  }
+  
+  .footer-container {
+    padding: 0 1rem;
+  }
+}
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="navbar">
+    <h1 class="logo">Maison Veloura</h1>
+    <div class="nav-right">
+      <a href="#products" class="home-btn">🏠 Explore</a>
+      <a href="cart.html" class="cart-btn">
+        🛒 Keranjang 
+        <span id="cartCount" style="margin-left:0.5rem;background:rgba(255,255,255,0.2);padding:0.2rem 0.5rem;border-radius:15px;font-size:0.8rem;display:none;">0</span>
+      </a>
+      <div class="menu-btn" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- DROPDOWN -->
+<div class="dropdown" id="dropdownMenu">
+  <a href="cart.html"><i class="fas fa-shopping-cart"></i> Keranjang</a>
+  <a href="#tentang"><i class="fas fa-info-circle"></i> Tentang</a>
+  <a href="#fresh"><i class="fas fa-snowflake"></i> Fresh</a>
+  <a href="#manis"><i class="fas fa-heart"></i> Manis</a>
+</div>
+
+<!-- HERO SECTION (700px TINGGI) -->
+<section class="hero" id="home">
+  <div class="hero-content">
+    <h1>Your Scent <br><span>Your Signature</span></h1>
+    <p>Temukan parfum premium terbaik yang mencerminkan kepribadianmu. Koleksi eksklusif dari brand-brand ternama dunia dengan kualitas terbaik.</p>
+    <div class="hero-buttons">
+      <a href="#products" class="btn-explore">Jelajahi Koleksi</a>
+      <a href="#tentang" class="btn-explore" style="background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.5);">Tentang Kami</a>
+    </div>
+  </div>
+  <div class="carousel-container">
+    <div class="slides" id="slides">
+      <img src="img/bisnis.jpeg"  alt="Bisnis Collection 1">
+      <img src="img/bisnis 2.jpeg" alt="Bisnis Collection 2">
+      <img src="img/bisnis.jpeg" alt="Bisnis Collection 3">
+    </div>
+    <button class="carousel-btn prev" onclick="prevSlide()">❮</button>
+    <button class="carousel-btn next" onclick="nextSlide()">❯</button>
+  </div>
+</section>
+
+<!-- SEARCH -->
+<div class="search-section">
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="🔍 Cari parfum favoritmu... (Mykonos, Velixir, Louis Vuitton, dll)" onkeyup="searchProduct()">
+  </div>
+</div>
+
+<!-- KATEGORI SCENT - FULL ANIMATED ✨ -->
+<section class="scent-categories">
+  <div class="scent-item active" onclick="filterByScent('all')" data-scent="all">
+    <div class="scent-icon">
+      <i class="fas fa-th-large"></i>
+    </div>
+    <h3>Semua</h3>
+    <p>Koleksi Lengkap</p>
+  </div>
+  
+  <!-- FRESH - ICE/SNOW ❄️ -->
+  <div class="scent-item" onclick="filterByScent('fresh')" data-scent="fresh">
+    <div class="scent-icon">
+      <i class="fas fa-snowflake"></i>
+    </div>
+    <h3>Fresh</h3>
+    <p>Segar & Energetik</p>
+  </div>
+  
+  <!-- MANIS - SWEET HEART 💖 -->
+  <div class="scent-item" onclick="filterByScent('manis')" data-scent="manis">
+    <div class="scent-icon">
+      <i class="fas fa-heart"></i>
+    </div>
+    <h3>Manis</h3>
+    <p>Manis & Hangat</p>
+  </div>
+  
+  <!-- SIANG - SUNNY ☀️ -->
+  <div class="scent-item" onclick="filterByScent('siang')" data-scent="siang">
+    <div class="scent-icon">
+      <i class="fas fa-sun"></i>
+    </div>
+    <h3>Siang</h3>
+    <p>Terang & Cerah</p>
+  </div>
+  
+  <!-- MALAM - MYSTERY MOON 🌙 -->
+  <div class="scent-item" onclick="filterByScent('malam')" data-scent="malam">
+    <div class="scent-icon">
+      <i class="fas fa-moon"></i>
+    </div>
+    <h3>Malam</h3>
+    <p>Gelap & Misterius</p>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products-section" id="products">
+  <div class="container" id="productContainer">
+    <!-- Products loaded by JS -->
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="tentang" class="about-section">
+  <h2>Luxury in Every Drop</h2>
+  <p>Maison Veloura adalah destinasi premium untuk pecinta parfum. Kami menghadirkan koleksi eksklusif dari brand-brand ternama dunia dengan kualitas terbaik dan harga kompetitif.</p>
+  <p>Dari aroma fresh untuk siang hari hingga parfum misterius untuk malam, temukan signature scent yang sempurna untuk setiap momenmu. Belanja parfum jadi lebih mudah, terpercaya, dan pastinya bikin kamu makin keren!</p>
+</section>
+
+<!-- MODAL -->
+<div class="modal" id="detailModal">
+  <div class="modal-content">
+    <span class="close" onclick="closeDetail()">✖</span>
+    <img id="detailImage" src="" alt="Product">
+    <h3 id="detailName"></h3>
+    <p id="detailDesc"></p>
+    <div class="product-price" id="detailPrice"></div>
+    <button class="btn-cart" onclick="addToCart()">🛒 Tambah ke Keranjang</button>
+    <button class="btn-buy" onclick="buyNow()">💰 Beli Sekarang</button>
+  </div>
+</div>
+
+<!-- FOOTER TOKOPEDIA STYLE -->
+<footer class="footer-section">
+  <!-- MAIN FOOTER -->
+  <div class="footer-main">
+    <div class="footer-container">
+      
+     <!-- LOGO & DESCRIPTION -->
+<div class="footer-brand">
+  <h3 class="logo-footer">Maison Veloura</h3>
+  <p>Destinasi premium untuk pecinta parfum. Koleksi eksklusif dari brand-brand ternama dunia dengan kualitas terbaik dan harga kompetitif.</p>
+</div>
+
+      <!-- QUICK LINKS 1 -->
+      <div class="footer-links">
+        <h4><i class="fas fa-rocket"></i> Jelajahi</h4>
+        <ul>
+          <li><a href="#products">Koleksi Parfum</a></li>
+          <li><a href="#fresh">Fresh</a></li>
+          <li><a href="#manis">Manis</a></li>
+          <li><a href="#siang">Siang</a></li>
+          <li><a href="#malam">Malam</a></li>
+        </ul>
+      </div>
+
+      <!-- QUICK LINKS 2 -->
+      <div class="footer-links">
+        <h4><i class="fas fa-headset"></i> Bantuan</h4>
+        <ul>
+          <li><a href="#">Panduan Belanja</a></li>
+          <li><a href="#">Pengembalian</a></li>
+          <li><a href="#">Syarat & Ketentuan</a></li>
+          <li><a href="#">Kebijakan Privasi</a></li>
+        </ul>
+      </div>
+
+      <!-- CONTACT INFO -->
+      <div class="footer-contact">
+        <h4><i class="fas fa-map-marker-alt"></i> Hubungi Kami</h4>
+        <div class="contact-item">
+          <i class="fas fa-phone"></i>
+          <span>+62 812-3456-7890</span>
+        </div>
+        <div class="contact-item">
+          <i class="fas fa-envelope"></i>
+          <span>hello@maisonveloura.com</span>
+        </div>
+        <div class="contact-item">
+          <i class="fas fa-clock"></i>
+          <span>24/7 Customer Support</span>
+        </div>
+      </div>
+
+      <!-- NEWSLETTER -->
+      <div class="footer-newsletter">
+        <h4><i class="fas fa-envelope-open"></i> Newsletter</h4>
+        <p>Dapatkan promo & diskon parfum terbaru!</p>
+        <div class="newsletter-form">
+          <input type="email" placeholder="Email kamu" class="newsletter-input">
+          <button class="newsletter-btn">Berlangganan</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- BOTTOM BAR -->
+  <div class="footer-bottom">
+    <div class="footer-container">
+      <div class="bottom-left">
+        <p>&copy; 2026 Maison Veloura All Rights Reserved.</p>
+      </div>
+      <div class="bottom-right">
+        <div class="payment-methods">
+        </div>
+        <div class="certifications">
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Products data - FULL LIST DENGAN BRAND
+  const products = [
+    {name: "Mykonos Penthouse", brand: "Mykonos", desc: "Mykonos Penthouse Extrait De Parfum 100ml", price: 400000, image: "img/penthouse.jfif.jpeg", scents: "fresh siang"},
+    {name: "Velixir Morpheus", brand: "Velixir", desc: "Velixir Morpheus Eau De Parfum 100ml", price: 500000, image: "img/morpehus.jpeg", scents: "manis malam"},
+    {name: "Rasasi Hawas Ice", brand: "Rasasi", desc: "Rasasi Hawas Ice Eau De Parfum 100ml", price: 880000, image: "img/hawasice.jfif.jpeg", scents: "fresh siang"},
+    {name: "Mykonos Reflection Elixir", brand: "Mykonos", desc: "Mykonos Reflection Elixir Extrait De Parfum 50ml", price: 255000, image: "img/refelixir.jfif.jpeg", scents: "manis siang"},
+    {name: "Velixir Persephone", brand: "Velixir", desc: "Velixir Persephone Eau De Parfum 100ml", price: 520000, image: "img/persephone.jfif.jpeg", scents: "fresh malam"},
+    {name: "Louis Vuitton Imagination", brand: "Louis Vuitton", desc: "Louis Vuitton Imagination Eau De Parfum 100ml", price: 6500000, image: "img/lv imagination.jpeg", scents: "fresh siang"},
+    {name: "Velixir Uranus", brand: "Velixir", desc: "Velixir Uranus Eau De Parfum 100ml", price: 550000, image: "img/VelixirUranus.jfif.jpeg", scents: "fresh siang"},
+    {name: "Mykonos Dreamscape", brand: "Mykonos", desc: "Mykonos Dreamscape Extrait De Parfum 100ml", price: 395000, image: "img/dreamscape.jpeg", scents: "manis malam"},
+    {name: "Velixir Aphrodite", brand: "Velixir", desc: "Velixir Aphrodite Eau De Parfum 100ml", price: 450000, image: "img/aphrodite.jpeg", scents: "manis siang"},
+    {name: "Mykonos Conquer", brand: "Mykonos", desc: "Mykonos Conquer Extrait De Parfum 100ml", price: 410000, image: "img/conquer.jfif.jpeg", scents: "fresh malam"},
+    {name: "Mykonos California Signature", brand: "Mykonos", desc: "Mykonos California Signature OG Extrait De Parfum 50ml", price: 250000, image: "img/california og.jpeg", scents: "fresh siang"},
+    {name: "Jean Paul Gaultier Le Male Elixir", brand: "JPG", desc: "Jean Paul Gaultier Le Male Elixir Eau De Parfum 125ml", price: 1910000, image: "img/jpglemalex.webp", scents: "manis malam"},
+    {name: "Velixir Icarus", brand: "Velixir", desc: "Velixir Icarus Eau De Parfum 100ml", price: 300000, image: "img/icarus.jfif.jpeg", scents: "fresh siang"},
+    {name: "Mykonos Monaco Royale", brand: "Mykonos", desc: "Mykonos Monaco Royale Extrait De Parfum 100ml", price: 550000, image: "img/monro.jfif.jpeg", scents: "manis malam"},
+    {name: "Versace Eros Flame", brand: "Versace", desc: "Versace Eros Flame Eau De Parfum 200ml", price: 1850000, image: "img/erosflame.jpg.jpeg", scents: "manis malam"}
+  ];
+
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  let currentProduct = {};
+  let slideIndex = 0;
+
+  // Initialize
+  window.onload = function() {
+    renderProducts(products);
+    startCarousel();
+    updateCartCount();
+  };
+
+  // Render products
+  function renderProducts(productList) {
+    const container = document.getElementById('productContainer');
+    container.innerHTML = '';
+    
+    productList.forEach(product => {
+      const productEl = document.createElement('div');
+      productEl.className = 'product';
+      productEl.setAttribute('data-name', product.name);
+      productEl.setAttribute('data-brand', product.brand);
+      productEl.setAttribute('data-scent', product.scents);
+      productEl.onclick = () => openDetail(product.name, product.desc, product.price, product.image);
+      
+      productEl.innerHTML = `
+        <img src="${product.image}" alt="${product.name}" 
+             onerror="this.src='https://via.placeholder.com/280x200/cccccc/666666?text=${product.brand}'">
+        <h3>${product.name}</h3>
+        <div class="product-price">Rp ${product.price.toLocaleString("id-ID")}</div>
+      `;
+      container.appendChild(productEl);
+    });
+  }
+
+  // Carousel - FULL WIDTH RESPONSIVE
+  function startCarousel() {
+    const slides = document.getElementById("slides");
+    const total = slides.children.length;
+    
+    function update() {
+      slides.style.transform = `translateX(-${slideIndex * (100/3)}%)`; // Responsive percentage
+    }
+    
+    window.nextSlide = function() {
+      slideIndex = (slideIndex + 1) % total;
+      update();
+    };
+    
+    window.prevSlide = function() {
+      slideIndex = (slideIndex - 1 + total) % total;
+      update();
+    };
+    
+    setInterval(nextSlide, 5000);
+    update();
+  }
+
+  // Menu
+  function toggleMenu() {
+    const menu = document.getElementById("dropdownMenu");
+    menu.style.display = menu.style.display === "block" ? "none" : "block";
+  }
+
+  // Cart count
+  function updateCartCount() {
+    const count = cart.length;
+    const cartCount = document.getElementById("cartCount");
+    cartCount.textContent = count;
+    cartCount.style.display = count > 0 ? "inline" : "none";
+  }
+
+  // Modal
+  function openDetail(name, desc, price, image) {
+    currentProduct = { name, price, image, brand: "Premium" };
+    document.getElementById("detailName").textContent = name;
+    document.getElementById("detailDesc").textContent = desc;
+    document.getElementById("detailPrice").innerHTML = `Rp ${price.toLocaleString("id-ID")}`;
+    document.getElementById("detailImage").src = image;
+    document.getElementById("detailModal").style.display = "flex";
+  }
+
+  function closeDetail() {
+    document.getElementById("detailModal").style.display = "none";
+  }
+
+  function addToCart() {
+    cart.push(currentProduct);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    updateCartCount();
+    alert(`✅ ${currentProduct.name} ditambahkan ke keranjang!`);
+    closeDetail();
+  }
+
+  function buyNow() {
+    localStorage.setItem("checkoutItem", JSON.stringify(currentProduct));
+    window.location.href = "checkout.html";
+  }
+
+  // Search
+  function searchProduct() {
+    const input = document.getElementById("searchInput").value.toLowerCase();
+    const filtered = products.filter(p => 
+      p.name.toLowerCase().includes(input) || 
+      p.brand.toLowerCase().includes(input)
+    );
+    renderProducts(filtered);
+  }
+
+  // Filter
+  function filterByScent(scent) {
+    document.querySelectorAll('.scent-item').forEach(item => {
+      item.classList.remove('active');
+      if (item.dataset.scent === scent) {
+        item.classList.add('active');
+      }
+    });
+
+    if (scent === 'all') {
+      renderProducts(products);
+    } else {
+      const filtered = products.filter(product => product.scents.includes(scent));
+      renderProducts(filtered.length > 0 ? filtered : products);
+    }
+  }
+
+  // Event listeners
+  window.onclick = function(event) {
+    const modal = document.getElementById("detailModal");
+    if (event.target === modal) closeDetail();
+  }
+
+  document.addEventListener('click', function(event) {
+    const menu = document.getElementById("dropdownMenu");
+    const menuBtn = document.querySelector('.menu-btn');
+    if (!menu.contains(event.target) && !menuBtn.contains(event.target)) {
+      menu.style.display = "none";
+    }
+  });
+</script>
+
+</body>
+</html>

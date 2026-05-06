@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🛒 Keranjang - L'Irréel Domité</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    html { scroll-behavior: smooth; }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 50%, #2d1b69 100%);
+      background-attachment: fixed;
+      overflow-x: hidden;
+      position: relative;
+    }
+    
+    /* Particles */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-image: 
+        radial-gradient(2px 2px at 20px 30px, #eee, transparent),
+        radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent);
+      background-repeat: repeat;
+      background-size: 200px 100px;
+      animation: float 20s infinite linear;
+      z-index: -1; opacity: 0.1;
+    }
+    
+    @keyframes float {
+      0% { transform: translateY(0px) rotate(0deg); }
+      100% { transform: translateY(-100px) rotate(360deg); }
+    }
+    
+    /* HEADER */
+    header {
+      background: rgba(15,15,15,0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding: 1rem 0;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+    }
+    
+    .navbar {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #ffd700, #ffed4e, #ffffff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .nav-link {
+      color: #ffffff;
+      text-decoration: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,255,255,0.1));
+      border: 1px solid rgba(255,215,0,0.3);
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    
+    .nav-link:hover {
+      background: linear-gradient(135deg, rgba(255,215,0,0.3), rgba(255,255,255,0.2));
+      transform: translateY(-2px);
+    }
+    
+    /* MAIN CONTENT */
+    .main {
+      max-width: 1400px;
+      margin: 120px auto 2rem;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2rem;
+      min-height: calc(100vh - 160px);
+    }
+    
+    /* CART BOX */
+    .cart-box {
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(20px);
+      padding: 2rem;
+      border-radius: 25px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    
+    .select-all {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      padding: 1rem;
+      background: rgba(255,215,0,0.1);
+      border-radius: 15px;
+      font-weight: 600;
+      color: #333;
+    }
+    
+    /* TABLE */
+    .cart-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    
+    .cart-table th {
+      background: linear-gradient(135deg, #ffd700, #ffed4e);
+      color: #000;
+      padding: 1.2rem;
+      font-weight: 600;
+      text-align: left;
+    }
+    
+    .cart-table td {
+      padding: 1.2rem;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    .cart-table tr:hover {
+      background: rgba(255,215,0,0.05);
+    }
+    
+    .cart-table img {
+      width: 70px;
+      height: 70px;
+      object-fit: cover;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+    
+    .product-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .product-name {
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 0.3rem;
+    }
+    
+    .product-brand {
+      color: #666;
+      font-size: 0.9rem;
+    }
+    
+    .price {
+      font-weight: 700;
+      color: #ffd700;
+      font-size: 1.1rem;
+    }
+    
+    .qty-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .qty-btn, .delete-btn {
+      width: 40px;
+      height: 40px;
+      border: none;
+      border-radius: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .qty-btn {
+      background: linear-gradient(135deg, #333, #555);
+      color: white;
+    }
+    
+    .qty-btn:hover {
+      background: linear-gradient(135deg, #ffd700, #ffed4e);
+      color: #000;
+      transform: scale(1.1);
+    }
+    
+    .delete-btn {
+      background: linear-gradient(135deg, #e74c3c, #c0392b);
+      color: white;
+    }
+    
+    .delete-btn:hover {
+      transform: scale(1.1) rotate(5deg);
+    }
+    
+    /* SUMMARY BOX */
+    .summary-box {
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(20px);
+      padding: 2rem;
+      border-radius: 25px;
+      height: fit-content;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,255,255,0.2);
+      position: sticky;
+      top: 140px;
+    }
+    
+    .summary-box h3 {
+      color: #333;
+      margin-bottom: 1.5rem;
+      font-family: 'Playfair Display', serif;
+    }
+    
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.8rem 0;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    .summary-total {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #ffd700 !important;
+      margin-top: 1rem;
+    }
+    
+    .input-field {
+      width: 100%;
+      padding: 1rem;
+      margin: 0.8rem 0 1.5rem 0;
+      border: 2px solid rgba(0,0,0,0.1);
+      border-radius: 15px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      background: rgba(255,255,255,0.8);
+    }
+    
+    .input-field:focus {
+      outline: none;
+      border-color: #ffd700;
+      box-shadow: 0 0 0 4px rgba(255,215,0,0.1);
+      transform: scale(1.02);
+    }
+    
+    .promo-btn, .checkout-btn {
+      width: 100%;
+      padding: 1rem;
+      border: none;
+      border-radius: 15px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-bottom: 1rem;
+    }
+    
+    .promo-btn {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+    }
+    
+    .checkout-btn {
+      background: linear-gradient(135deg, #ffd700, #ffed4e);
+      color: #000;
+      font-weight: 700;
+      font-size: 1.2rem;
+      box-shadow: 0 10px 30px rgba(255,215,0,0.4);
+    }
+    
+    .checkout-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 40px rgba(255,215,0,0.6);
+    }
+    
+    .info-text {
+      font-size: 0.85rem;
+      color: #666;
+      line-height: 1.4;
+      text-align: center;
+    }
+    
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .main { 
+        grid-template-columns: 1fr;
+        margin: 100px 1rem 1rem;
+        gap: 1.5rem;
+        padding: 0 1rem;
+      }
+      
+      .summary-box {
+        position: static;
+        order: 2;
+      }
+      
+      .cart-table img { width: 50px; height: 50px; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- HEADER -->
+  <header>
+    <nav class="navbar">
+      <a href="index.html" class="logo">L'Irréel Domité</a>
+      <a href="index.html" class="nav-link">🏠 Home</a>
+    </nav>
+  </header>
+
+  <div class="main">
+    <!-- CART BOX -->
+    <div class="cart-box">
+      <div class="select-all">
+        <input type="checkbox" id="selectAll" onclick="selectAll(this)">
+        <label for="selectAll">✨ Pilih Semua</label>
+      </div>
+      
+      <table class="cart-table">
+        <thead>
+          <tr>
+            <th><i class="fas fa-check-circle"></i></th>
+            <th>Produk</th>
+            <th>Harga</th>
+            <th>Jumlah</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody id="cartItems"></tbody>
+      </table>
+    </div>
+
+    <!-- SUMMARY -->
+    <div class="summary-box">
+      <h3><i class="fas fa-receipt"></i> Ringkasan Belanja</h3>
+      
+      <div class="summary-item">
+        <span>Total Belanja</span>
+        <span id="total">Rp 0</span>
+      </div>
+      
+      <input type="text" class="input-field" id="promoCode" placeholder="🎁 Masukkan kode promo">
+      <button class="promo-btn" onclick="applyPromo()">Terapkan Promo</button>
+      
+      <div class="summary-item">
+        <span>Diskon</span>
+        <span id="discount">Rp 0</span>
+      </div>
+      
+      <hr style="border: 1px solid rgba(0,0,0,0.1);">
+      
+      <div class="summary-item">
+        <span><i class="fas fa-truck"></i> Ongkir</span>
+        <span>Rp 10.000</span>
+      </div>
+      
+      <div class="summary-total">
+        Total Bayar: <span id="finalTotal">Rp 0</span>
+      </div>
+      
+      <hr>
+      
+      <h4><i class="fas fa-user"></i> Data Pembeli</h4>
+      <input type="text" class="input-field" id="nama" placeholder="👤 Nama lengkap">
+      <textarea class="input-field" id="alamat" placeholder="📍 Alamat lengkap + kode pos" rows="3"></textarea>
+      
+      <button class="checkout-btn" onclick="checkout()">
+        <i class="fab fa-whatsapp"></i> Checkout WhatsApp
+      </button>
+      
+      <div class="info-text">
+        ✅ Pembayaran aman<br>
+        ✅ Respon 24/7<br>
+        ✅ Pengiriman cepat
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let discount = 0;
+
+    function formatRupiah(angka) {
+      return angka.toLocaleString("id-ID");
+    }
+
+    // Initialize quantity
+    cart.forEach(item => {
+      if (!item.qty) item.qty = 1;
+      if (!item.selected) item.selected = false;
+    });
+
+    function renderCart() {
+      let cartItems = document.getElementById("cartItems");
+      let total = 0;
+      cartItems.innerHTML = "";
+
+      cart.forEach((item, index) => {
+        if (item.selected) {
+          total += item.price * item.qty;
+        }
+
+        cartItems.innerHTML += `
+        <tr>
+          <td>
+            <input type="checkbox" ${item.selected ? "checked" : ""} 
+                   onchange="toggleSelect(${index})">
+          </td>
+          <td>
+            <div class="product-info">
+              <img src="${item.image}" alt="${item.name}">
+              <div>
+                <div class="product-name">${item.name}</div>
+                <div class="product-brand">${item.brand || 'Premium'}</div>
+              </div>
+            </div>
+          </td>
+          <td><div class="price">Rp ${formatRupiah(item.price)}</div></td>
+          <td>
+            <div class="qty-controls">
+              <button class="qty-btn" onclick="kurang(${index})">➖</button>
+              <span style="min-width:30px; font-weight:600;">${item.qty}</span>
+              <button class="qty-btn" onclick="tambah(${index})">➕</button>
+            </div>
+          </td>
+          <td>
+            <button class="delete-btn" onclick="removeItem(${index})">
+              <i class="fas fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+        `;
+      });
+
+      let finalTotal = total - discount + 10000;
+      if (finalTotal < 0) finalTotal = 0;
+
+      document.getElementById("total").innerText = formatRupiah(total);
+      document.getElementById("discount").innerText = formatRupiah(discount);
+      document.getElementById("finalTotal").innerText = formatRupiah(finalTotal);
+    }
+
+    function selectAll(source) {
+      cart.forEach(item => item.selected = source.checked);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      renderCart();
+    }
+
+    function toggleSelect(index) {
+      cart[index].selected = !cart[index].selected;
+      localStorage.setItem("cart", JSON.stringify(cart));
+      renderCart();
+    }
+
+    function removeItem(index) {
+      if (confirm('Hapus produk ini?')) {
+        cart.splice(index, 1);
+        localStorage.setItem("cart", JSON.stringify(cart));
+        renderCart();
+      }
+    }
+
+    function tambah(index) {
+      cart[index].qty += 1;
+      localStorage.setItem("cart", JSON.stringify(cart));
+      renderCart();
+    }
+
+    function kurang(index) {
+      if (cart[index].qty > 1) {
+        cart[index].qty -= 1;
+        localStorage.setItem("cart", JSON.stringify(cart));
+        renderCart();
+      }
+    }
+
+    function applyPromo() {
+      let code = document.getElementById("promoCode").value.toUpperCase();
+      if (code === "HEMAT10") {
+        discount = 10000;
+            } else if (code === "DISKON20") {
+        discount = 20000;
+             } else {
+        discount = 0;
+      }
+      renderCart();
+    }
+
+    function checkout() {
+      let selectedItems = cart.filter(item => item.selected);
+      if (selectedItems.length === 0) {
+        alert("❌ Pilih produk dulu!");
+        return;
+      }
+
+      let nama = document.getElementById("nama").value;
+      let alamat = document.getElementById("alamat").value;
+
+      if (!nama || !alamat) {
+        alert("❌ Isi nama & alamat dulu!");
+        return;
+      }
+
+      let pesan = "🛒 *ORDER BARU L'Irréel Domité*\n\n";
+      pesan += `👤 *${nama}*\n`;
+      pesan += `📍 *${alamat}*\n\n`;
+      pesan += "📦 *Pesanan:*\n";
+
+      let total = 0;
+      selectedItems.forEach((item, i) => {
+        let subtotal = item.price * item.qty;
+        total += subtotal;
+        pesan += `${i + 1}. ${item.name}\n   (${item.qty}x) Rp ${formatRupiah(subtotal)}\n\n`;
+      });
+
+      let finalTotal = total - discount + 10000;
+      pesan += `💰 *Subtotal:* Rp ${formatRupiah(total)}\n`;
+      pesan += `🎁 *Diskon:* -Rp ${formatRupiah(discount)}\n`;
+      pesan += `🚚 *Ongkir:* Rp 10.000\n`;
+      pesan += `════════════════════\n`;
+      pesan += `💵 *TOTAL BAYAR:* Rp ${formatRupiah(finalTotal)}\n\n`;
+      pesan += "🙏 Terima kasih telah berbelanja!";
+
+      let encoded = encodeURIComponent(pesan);
+      window.open(`https://wa.me/6285936561575?text=${encoded}`, "_blank");
+    }
+
+    // Initial render
+    renderCart();
+  </script>
+</body>
+</html>

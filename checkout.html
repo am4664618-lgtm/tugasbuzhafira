@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>💳 Checkout - L'Irréel Domité</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    html { scroll-behavior: smooth; }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 50%, #2d1b69 100%);
+      background-attachment: fixed;
+      overflow-x: hidden;
+    }
+    
+    /* Particles */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-image: 
+        radial-gradient(2px 2px at 20px 30px, #eee, transparent),
+        radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent);
+      background-repeat: repeat;
+      background-size: 200px 100px;
+      animation: float 20s infinite linear;
+      z-index: -1; opacity: 0.1;
+    }
+    
+    @keyframes float {
+      0% { transform: translateY(0px) rotate(0deg); }
+      100% { transform: translateY(-100px) rotate(360deg); }
+    }
+    
+    /* HEADER */
+    header {
+      background: rgba(15,15,15,0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding: 1rem 0;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+    }
+    
+    .navbar {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #ffd700, #ffed4e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+    
+    .nav-link {
+      color: #ffffff;
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,255,255,0.1));
+      border: 1px solid rgba(255,215,0,0.3);
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+    
+    .nav-link:hover {
+      background: linear-gradient(135deg, rgba(255,215,0,0.4), rgba(255,255,255,0.2));
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(255,215,0,0.3);
+    }
+    
+    /* MAIN */
+    .main {
+      max-width: 1400px;
+      margin: 120px auto 2rem;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2rem;
+      min-height: calc(100vh - 160px);
+    }
+    
+    /* PRODUCT BOX */
+    .product-box {
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(20px);
+      padding: 2.5rem;
+      border-radius: 25px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    
+    .product-box h3 {
+      color: #333;
+      margin-bottom: 1.5rem;
+      font-family: 'Playfair Display', serif;
+    }
+    
+    .product-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+    
+    .product-image-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .product-image {
+      width: 100%;
+      max-width: 300px;
+      height: 350px;
+      object-fit: cover;
+      border-radius: 25px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+      margin-bottom: 1rem;
+    }
+    
+    .product-desc-section {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    
+    .product-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 0.5rem;
+      grid-column: 1 / -1;
+    }
+    
+    .product-price {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #ffd700;
+      margin-bottom: 1rem;
+      grid-column: 1 / -1;
+      text-align: center;
+    }
+    
+    .product-description {
+      background: rgba(255,255,255,0.8);
+      padding: 1.5rem;
+      border-radius: 20px;
+      border-left: 5px solid #ffd700;
+      line-height: 1.7;
+      color: #555;
+      font-size: 0.95rem;
+      max-height: 300px;
+      overflow-y: auto;
+      margin-bottom: 1rem;
+    }
+    
+    .notes-section {
+      background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(255,255,255,0.5));
+      padding: 1.5rem;
+      border-radius: 20px;
+      border: 1px solid rgba(255,215,0,0.3);
+    }
+    
+    .notes-title {
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+    
+    .notes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 0.8rem;
+    }
+    
+    .note-item {
+      background: rgba(255,255,255,0.9);
+      padding: 0.8rem;
+      border-radius: 12px;
+      text-align: center;
+      font-size: 0.85rem;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    .note-type {
+      font-weight: 600;
+      color: #ffd700;
+      margin-bottom: 0.3rem;
+      font-size: 0.9rem;
+    }
+    
+    .product-features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    
+    .feature-item {
+      background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(255,255,255,0.5));
+      padding: 1rem;
+      border-radius: 15px;
+      text-align: center;
+      border: 1px solid rgba(255,215,0,0.2);
+      transition: all 0.3s ease;
+    }
+    
+    .feature-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(255,215,0,0.2);
+    }
+    
+    .feature-icon {
+      font-size: 1.5rem;
+      color: #ffd700;
+      margin-bottom: 0.5rem;
+    }
+    
+    .qty-box {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.5rem;
+      background: rgba(255,215,0,0.1);
+      border-radius: 20px;
+      justify-content: center;
+      grid-column: 1 / -1;
+    }
+    
+    .qty-btn {
+      width: 50px;
+      height: 50px;
+      border: none;
+      background: linear-gradient(135deg, #333, #555);
+      color: white;
+      border-radius: 15px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .qty-btn:hover {
+      background: linear-gradient(135deg, #ffd700, #ffed4e);
+      color: #000;
+      transform: scale(1.1);
+    }
+    
+    .qty-display {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #333;
+      min-width: 60px;
+      text-align: center;
+    }
+    
+    /* SUMMARY BOX */
+    .summary-box {
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(20px);
+      padding: 2.5rem;
+      border-radius: 25px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,255,255,0.2);
+      position: sticky;
+      top: 140px;
+      height: fit-content;
+    }
+    
+    .summary-box h3 {
+      color: #333;
+      margin-bottom: 1.5rem;
+      font-family: 'Playfair Display', serif;
+    }
+    
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      font-size: 1.1rem;
+    }
+    
+    .summary-total {
+      font-size: 1.8rem !important;
+      font-weight: 700 !important;
+      color: #ffd700 !important;
+      padding: 1.5rem 0;
+      border-top: 3px solid #ffd700;
+      margin-top: 1rem;
+    }
+    
+    .input-field {
+      width: 100%;
+      padding: 1.2rem;
+      margin: 1rem 0;
+      border: 2px solid rgba(0,0,0,0.1);
+      border-radius: 15px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      background: rgba(255,255,255,0.8);
+    }
+    
+    .input-field:focus {
+      border-color: #ffd700;
+      box-shadow: 0 0 0 4px rgba(255,215,0,0.1);
+    }
+    
+    .promo-section {
+      margin: 1.5rem 0;
+    }
+    
+    .promo-btn {
+      width: 100%;
+      padding: 1rem;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      border: none;
+      border-radius: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .promo-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+    }
+    
+    .checkout-btn {
+      width: 100%;
+      padding: 1.5rem;
+      background: linear-gradient(135deg, #ffd700, #ffed4e);
+      color: #000;
+      border: none;
+      border-radius: 20px;
+      font-size: 1.3rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 2rem;
+      box-shadow: 0 15px 40px rgba(255,215,0,0.4);
+      transition: all 0.3s ease;
+    }
+    
+    .checkout-btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 25px 50px rgba(255,215,0,0.6);
+    }
+    
+    .toast {
+      position: fixed;
+      top: 120px;
+      right: 2rem;
+      padding: 1.2rem 2rem;
+      border-radius: 20px;
+      color: white;
+      font-weight: 600;
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: all 0.4s ease;
+      z-index: 9999;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      max-width: 350px;
+    }
+    
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .toast.success { background: linear-gradient(135deg, #27ae60, #2ecc71); }
+    .toast.error { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+    .toast.warning { background: linear-gradient(135deg, #f39c12, #e67e22); }
+    
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .product-content {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      
+      .product-price {
+        text-align: left;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 0 1rem;
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem;
+      }
+      
+      .nav-link {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+      }
+      
+      .main { 
+        grid-template-columns: 1fr;
+        margin: 100px 1rem 1rem;
+        gap: 1.5rem;
+        padding: 0 1rem;
+      }
+      
+      .summary-box { position: static; }
+      
+      .product-image { 
+        height: 280px;
+        max-width: 250px;
+      }
+      
+      .notes-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .product-features {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="toast" class="toast"></div>
+
+  <!-- HEADER -->
+  <header>
+    <nav class="navbar">
+      <a href="index.html" class="logo">L'Irréel Domité</a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">🏠 Home</a>
+        <a href="cart.html" class="nav-link">🛒 Keranjang</a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="main">
+    <!-- PRODUCT DETAIL -->
+    <div class="product-box">
+      <h3><i class="fas fa-shopping-bag"></i> Produk Dipilih</h3>
+      
+      <div id="checkoutData">
+        <div class="product-title" id="productName">Loading...</div>
+        <div class="product-price" id="productPrice">Rp 0</div>
+        
+        <div class="product-content">
+          <div class="product-image-section">
+            <img id="productImage" class="product-image" src="" alt="Product">
+          </div>
+          
+          <div class="product-desc-section">
+            <div class="product-description" id="productDesc">
+              Deskripsi produk akan muncul di sini...
+            </div>
+            
+            <div class="notes-section" id="notesSection">
+              <!-- Notes akan dimuat dinamis -->
+            </div>
+          </div>
+        </div>
+        
+        <div class="product-features" id="productFeatures">
+          <!-- Fitur produk akan dimuat secara dinamis -->
+        </div>
+        
+        <div class="qty-box">
+          <button class="qty-btn" onclick="kurang()">➖</button>
+          <div class="qty-display" id="jumlah">1</div>
+          <button class="qty-btn" onclick="tambah()">➕</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUMMARY -->
+    <div class="summary-box">
+      <h3><i class="fas fa-receipt"></i> Ringkasan Pembayaran</h3>
+      
+      <div class="summary-item">
+        <span>Subtotal</span>
+        <span id="subtotal">Rp 0</span>
+      </div>
+      
+      <div class="summary-item">
+        <span><i class="fas fa-truck"></i> Ongkir</span>
+        <span>Rp 10.000</span>
+      </div>
+      
+      <div class="promo-section">
+        <input type="text" class="input-field" id="promoCode" placeholder="🎁 Kode promo (HEMAT10/LIRREAL20)">
+        <button class="promo-btn" onclick="applyPromo()">Terapkan Promo</button>
+      </div>
+      
+      <div class="summary-item">
+        <span>Diskon</span>
+        <span id="discount">Rp 0</span>
+      </div>
+      
+      <hr style="border: 2px solid #ffd700; margin: 1.5rem 0;">
+      
+      <div class="summary-item summary-total">
+        <span>Total Bayar</span>
+        <span id="total">Rp 0</span>
+      </div>
+      
+      <h4 style="margin-top: 2rem;"><i class="fas fa-user"></i> Data Penerima</h4>
+      <input type="text" class="input-field" id="nama" placeholder="👤 Nama lengkap">
+      <textarea class="input-field" id="alamat" placeholder="📍 Alamat lengkap + kode pos" rows="3"></textarea>
+      
+      <button class="checkout-btn" onclick="checkout()">
+        <i class="fab fa-whatsapp"></i> Bayar via WhatsApp
+      </button>
+    </div>
+  </div>
+
+  <script>
+    let item = JSON.parse(localStorage.getItem("checkoutItem"));
+    let ongkir = 10000;
+    let jumlah = 1;
+    let discount = 0;
+
+    // DATABASE FULL PRODUK DENGAN NOTES DETAIL
+    const productData = {
+      "Mykonos Dreamscape": {
+        desc: `✨ *MYKONOS DREAMSCAPE EDP* - Terinspirasi dari sunset Yunani yang memukau, aroma tropis yang membawa Anda ke pantai Mykonos. Menggabungkan kesegaran buah dengan kehangatan rempah.
+
+*Keunggulan:*
+- Longevity: 8-10 jam
+- Sillage: Moderate-Strong
+- Versatilitas: Day to Night
+- Gender: Unisex
+
+*Perfect for:* Liburan musim panas, beach party, atau casual weekend.`,
+        notes: {
+          top: "Mango, Italian Lemon, Rhubarb",
+          middle: "Ginger, Jasmine, Violet, Praline, Pink Pepper",
+          base: "Cedar, Grey Amber, Tonka Beans, Moss"
+        },
+        features: [
+          { icon: "🌅", title: "Sunset Vibe", desc: "Greek Island Inspired" },
+          { icon: "🍋", title: "Fresh Tropical", desc: "8-10 Hours" },
+          { icon: "👫", title: "Unisex", desc: "Day to Night" },
+          { icon: "💎", title: "Premium EDP", desc: "100ml" }
+        ]
+      },
+      "Mykonos Penthouse": {
+        desc: `🏙️ *MYKONOS PENTHOUSE EDP* - Aroma mewah rooftop party di penthouse Mykonos. Kombinasi fruity-floral dengan woody base yang elegan.
+
+*Keunggulan:*
+- Beast Mode Performance
+- Luxury Sillage
+- Sophisticated & Modern
+- Perfect untuk evening wear
+
+*Signature scent* para socialite dan jetsetter.`,
+        notes: {
+          top: "Fruity Notes, Bergamot, Lemon, Mandarin Orange",
+          middle: "Rose, Raspberry, Jasmine, Apricot",
+          base: "Sandalwood, Musk, Patchouli, Cedarwood, Vetiver, Amber"
+        },
+        features: [
+          { icon: "🏢", title: "Luxury Penthouse", desc: "Evening Wear" },
+          { icon: "🌹", title: "Floral Fruity", desc: "Beast Mode" },
+          { icon: "⭐", title: "Signature", desc: "Jetsetter" },
+          { icon: "💨", title: "Strong Proj", desc: "100ml EDP" }
+        ]
+      },
+      "Mykonos Reflection Elixir": {
+        desc: `💎 *MYKONOS REFLECTION ELIXIR* - Elixir mewah dengan citrus opening yang segar dan floral heart yang romantis. Base musk-amber memberikan longevity luar biasa.
+
+*Elixir Concentration* - 25%+ Perfume Oil
+*Perfect for:* Date night, wedding, formal events`,
+        notes: {
+          top: "Grapefruit, Mandarin Orange, Bergamot, Fruity Notes, Green Notes",
+          middle: "Peach, Jasmine, Geranium, Rose, Patchouli",
+          base: "Musk, Amber, Sandalwood, Cedarwood"
+        },
+        features: [
+          { icon: "💖", title: "Elixir 25%+", desc: "Ultra Longevity" },
+          { icon: "🌺", title: "Romantic Floral", desc: "Date Night" },
+          { icon: "🍑", title: "Peach Accord", desc: "Formal Wear" },
+          { icon: "👰", title: "Wedding Perfume", desc: "100ml" }
+        ]
+      },
+      "Mykonos Monaco Royale": {
+        desc: `👑 *MYKONOS MONACO ROYALE* - Royal fragrance dengan citrus bergamot yang noble dan fruity-floral heart. Base woody-amber memberikan kesan majesty.
+
+*Inspired by:* Monte Carlo luxury lifestyle
+*Perfect for:* Business meetings, gala dinner`,
+        notes: {
+          top: "Bergamot, Orange, Jasmine, Lemon",
+          middle: "Rose, Apricot, Floral Notes, Raspberry, Ambrette, Plum",
+          base: "Cedarwood, Vetiver, Amber, Musk"
+        },
+        features: [
+          { icon: "👑", title: "Royal Citrus", desc: "Monte Carlo" },
+          { icon: "💼", title: "Business Elite", desc: "Gala Dinner" },
+          { icon: "🌹", title: "Noble Rose", desc: "Woody Base" },
+          { icon: "⭐", title: "Majesty", desc: "100ml EDP" }
+        ]
+      },
+      "Mykonos Conquer": {
+        desc: `⚔️ *MYKONOS CONQUER EDP* - Bold & powerful fragrance untuk modern conqueror. Apple-bergamot opening dengan gourmand praline dan warm vanilla base.
+
+*Powerhouse Performance*
+*Perfect for:* Office dominance, clubbing, cold weather`,
+        notes: {
+          top: "Bergamot, Apple, Myrrh",
+          middle: "Orange Flower, Guaiac Wood, Praline",
+          base: "Vanilla, Ambroxan, Praline"
+        },
+        features: [
+          { icon: "⚔️", title: "Conqueror", desc: "Powerhouse" },
+          { icon: "🍎", title: "Bold Apple", desc: "Office Beast" },
+          { icon: "🍮", title: "Gourmand", desc: "Cold Weather" },
+          { icon: "💪", title: "Dominance", desc: "100ml" }
+        ]
+      },
+      "Mykonos California Signature": {
+        desc: `🌴 *MYKONOS CALIFORNIA SIGNATURE* - West Coast vibe dengan citrus opening dan aquatic-spicy heart. Teak wood base memberikan coastal woody character.
+
+*California Dreamin'*
+*Perfect for:* Beach days, casual outings, summer`,
+        notes: {
+          top: "Mandarin Orange, Lemon",
+          middle: "Lavender, Lychee, Aquatic notes, Rosemary, Cardamom, Geranium",
+          base: "Teak Wood, Tonka Bean, Vetiver"
+        },
+        features: [
+          { icon: "🌴", title: "California Vibe", desc: "West Coast" },
+          { icon: "🏖️", title: "Aquatic Woody", desc: "Beach Days" },
+          { icon: "☀️", title: "Summer Fresh", desc: "Casual" },
+          { icon: "🌊", title: "Coastal", desc: "100ml EDP" }
+        ]
+      },
+      "Velixir Morpheus": {
+        desc: `😴 *VELIXIR MORPHESUS EDP* - God of dreams fragrance dengan coffee-lavender opening dan milky-vanilla base. Cozy & comforting scent.
+
+*Perfect for:* Nighttime, winter, relaxation`,
+        notes: {
+          top: "Lavender, Coffee, Bergamot",
+          middle: "Milk, Tonka Bean",
+          base: "Vanilla, Sandalwood"
+        },
+        features: [
+          { icon: "😴", title: "Dream God", desc: "Cozy Comfort" },
+          { icon: "☕", title: "Coffee Lavender", desc: "Winter Nights" },
+          { icon: "🥛", title: "Milky Vanilla", desc: "Relaxation" },
+          { icon: "🌙", title: "Bedtime", desc: "100ml" }
+        ]
+      },
+      "Velixir Persephone": {
+        desc: `🌸 *VELIXIR PERSEPHONE EDP* - Queen of underworld dengan fruity-floral opening dan white musk base. Feminine & mysterious.
+
+*Perfect for:* Spring, romantic evenings`,
+        notes: {
+          top: "Pomegranate, Strawberry, Rose",
+          middle: "Lily of the Valley, Jasmine",
+          base: "White Musk, Vanilla"
+        },
+        features: [
+          { icon: "🌸", title: "Underworld Queen", desc: "Fruity Floral" },
+          { icon: "🍓", title: "Pomegranate", desc: "Spring Romance" },
+          { icon: "💝", title: "Feminine", desc: "Mysterious" },
+          { icon: "🌺", title: "Delicate", desc: "100ml EDP" }
+        ]
+      },
+      "Velixir Uranus": {
+        desc: `⚡ *VELIXIR URANUS EDP* - God of sky dengan ozonic-aquatic opening dan fresh herbal heart. Clean & invigorating scent.
+
+*Perfect for:* Gym, office, hot weather`,
+        notes: {
+          top: "Ozone, Sea Water, Mint",
+          middle: "Lavender, Sage",
+          base: "White Musk, Cedar"
+        },
+        features: [
+          { icon: "⚡", title: "Sky God", desc: "Ozonic Fresh" },
+          { icon: "🌊", title: "Sea Mint", desc: "Gym Fresh" },
+          { icon: "💼", title: "Office Clean", desc: "Hot Weather" },
+          { icon: "❄️", title: "Invigorating", desc: "100ml" }
+        ]
+      },
+      "Velixir Aphrodite": {
+        desc: `💋 *VELIXIR APHRODITE EDP* - Goddess of love dengan gourmand strawberry-cream opening dan sweet musk base. Ultra feminine & seductive.
+
+*Perfect for:* Date nights, parties, Valentine's`,
+        notes: {
+          top: "Strawberry, Whipped Cream, Marshmallow",
+          middle: "Vanilla, Caramel",
+          base: "Musk, Sandalwood"
+        },
+        features: [
+          { icon: "💋", title: "Love Goddess", desc: "Gourmand Sweet" },
+          { icon: "🍓", title: "Strawberry Cream", desc: "Date Night" },
+          { icon: "❤️", title: "Seductive", desc: "Party Scent" },
+          { icon: "💕", title: "Valentine's", desc: "100ml EDP" }
+        ]
+      },
+      "Velixir Icarus": {
+        desc: `🕊️ *VELIXIR ICARUS EDP* - Flying too close to the sun dengan citrus-herbal opening dan clean amber base. Fresh & uplifting.
+
+*Perfect for:* Morning, workouts, daily wear`,
+        notes: {
+          top: "Neroli, Bergamot, Rosemary",
+          middle: "Orange Blossom, Lavender",
+          base: "White Amber, Musk"
+        },
+        features: [
+          { icon: "🕊️", title: "Sun Flyer", desc: "Citrus Herbal" },
+          { icon: "🌅", title: "Morning Fresh", desc: "Daily Wear" },
+          { icon: "💪", title: "Workout", desc: "Uplifting" },
+          { icon: "☀️", title: "Clean Amber", desc: "100ml" }
+        ]
+      },
+      "LV Imagination": {
+        desc: `✈️ *LV IMAGINATION Dupe EDP* - Travel-inspired citrus-spicy dengan unique black tea base. Sophisticated & worldly.
+
+*Inspired by:* Louis Vuitton Imagination
+*Perfect for:* Business class, jetset lifestyle`,
+        notes: {
+          top: "Citron, Calabrian Bergamot, Sicilian Orange",
+          middle: "Nigerian Ginger, Tunisian Neroli, Ceylon Cinnamon",
+          base: "Chinese Black Tea, Ambroxan, Guaiac Wood, Olibanum"
+        },
+        features: [
+          { icon: "✈️", title: "Travel Luxury", desc: "LV Inspired" },
+          { icon: "🍊", title: "Citrus Spicy", desc: "Black Tea" },
+          { icon: "💼", title: "Jetset", desc: "Sophisticated" },
+          { icon: "☕", title: "Unique Tea", desc: "100ml EDP" }
+        ]
+      },
+      "Rasasi Hawas Ice": {
+        desc: `🌊 *RASASI HAWAS ICE Dupe* - Ice-cold aquatic dengan apple-lemon opening dan marine base. Super fresh untuk hot weather.
+
+*Inspired by:* Invictus Aqua
+*Perfect for:* Summer, sports, beach`,
+        notes: {
+          top: "Apple, Italian Lemon, Sicilian Bergamot, Star Anise",
+          middle: "Plum, Orange Blossom, Cardamom",
+          base: "Musk, Amber, Driftwood, Moss"
+        },
+        features: [
+          { icon: "🌊", title: "Ice Aquatic", desc: "Hawas Inspired" },
+          { icon: "🍎", title: "Apple Lemon", desc: "Summer Fresh" },
+          { icon: "🏄", title: "Beach Sports", desc: "Hot Weather" },
+          { icon: "❄️", title: "Super Fresh", desc: "100ml" }
+        ]
+      },
+      "JPG Le Male Elixir": {
+        desc: `🧔 *JPG LE MALE ELIXIR Dupe* - Ultra masculine gourmand dengan lavender-mint opening dan honey-tobacco base. Beast mode performance.
+
+*Inspired by:* Le Male Elixir
+*Perfect for:* Winter, nights out, clubbing`,
+        notes: {
+          top: "Lavender, Mint",
+          middle: "Vanilla, Benzoin",
+          base: "Honey, Tonka Bean, Tobacco"
+        },
+        features: [
+          { icon: "🧔", title: "Male Elixir", desc: "Beast Mode" },
+          { icon: "🍯", title: "Honey Tobacco", desc: "Winter Nights" },
+          { icon: "🌙", title: "Clubbing", desc: "Masculine" },
+          { icon: "🔥", title: "Gourmand", desc: "100ml EDP" }
+        ]
+      },
+      "Versace Eros Flame": {
+        desc: `🔥 *VERSACE EROS FLAME Dupe* - Fiery masculine dengan spicy-citrus opening dan vanilla-woody base. Passionate & intense.
+
+*Inspired by:* Eros Flame
+*Perfect for:* Date nights, parties, cold weather`,
+        notes: {
+          top: "Mandarin Orange, Black Pepper, Chinotto, Lemon, Rosemary",
+          middle: "Pepper, Geranium, Rose",
+          base: "Vanilla, Tonka Bean, Texas Cedar, Sandalwood, Patchouli, Oakmoss"
+        },
+        features: [
+          { icon: "🔥", title: "Eros Flame", desc: "Fiery Passion" },
+          { icon: "🌶️", title: "Spicy Citrus", desc: "Date Nights" },
+          { icon: "❤️", title: "Intense", desc: "Party Beast" },
+          { icon: "❄️", title: "Cold Weather", desc: "100ml EDP" }
+        ]
+      }
+    };
+
+    function showToast(msg, type = "success") {
+      let toast = document.getElementById("toast");
+      toast.innerText = msg;
+      toast.className = `toast ${type} show`;
+      setTimeout(() => toast.classList.remove("show"), 4000);
+    }
+
+    function updateTotal() {
+      if (!item) return;
+      
+      let subtotal = item.price * jumlah;
+      let total = subtotal + ongkir - discount;
+      
+      document.getElementById("subtotal").innerText = `Rp ${subtotal.toLocaleString("id-ID")}`;
+      document.getElementById("discount").innerText = `Rp ${discount.toLocaleString("id-ID")}`;
+      document.getElementById("total").innerText = `Rp ${total.toLocaleString("id-ID")}`;
+      document.getElementById("jumlah").innerText = jumlah;
+    }
+
+    function loadNotesSection(notes) {
+      return `
+        <div class="notes-title">📊 <strong>Fragrance Pyramid</strong></div>
+        <div class="notes-grid">
+          <div class="note-item">
+            <div class="note-type">🌟 TOP NOTES</div>
+            <div>${notes.top}</div>
+          </div>
+          <div class="note-item">
+            <div class="note-type">💖 MIDDLE NOTES</div>
+            <div>${notes.middle}</div>
+          </div>
+          <div class="note-item">
+            <div class="note-type">🌲 BASE NOTES</div>
+            <div>${notes.base}</div>
+          </div>
+        </div>
+      `;
+    }
+
+    // Load product data lengkap
+    function loadProductData() {
+      if (!item) return;
+      
+      document.getElementById("productName").textContent = item.name;
+      document.getElementById("productPrice").innerText = `Rp ${item.price.toLocaleString("id-ID")}`;
+      document.getElementById("productImage").src = item.image;
+      
+      if (productData[item.name]) {
+        const data = productData[item.name];
+        
+        // Deskripsi lengkap
+        document.getElementById("productDesc").innerHTML = data.desc;
+        
+        // Notes pyramid
+        document.getElementById("notesSection").innerHTML = loadNotesSection(data.notes);
+        
+        // Features
+        let featuresHtml = '';
+        data.features.forEach(feature => {
+          featuresHtml += `
+            <div class="feature-item">
+              <div class="feature-icon">${feature.icon}</div>
+              <div style="font-weight: 600; color: #333; margin-bottom: 0.3rem;">${feature.title}</div>
+              <div style="font-size: 0.9rem; color: #666;">${feature.desc}</div>
+            </div>
+          `;
+        });
+        document.getElementById("productFeatures").innerHTML = featuresHtml;
+      }
+      
+      updateTotal();
+    }
+
+    // Initialize
+    if (item) {
+      loadProductData();
+    } else {
+      showToast("Produk tidak ditemukan!", "error");
+      setTimeout(() => window.location.href = "index.html", 2000);
+    }
+
+    function tambah() {
+      jumlah++;
+      updateTotal();
+    }
+
+    function kurang() {
+      if (jumlah > 1) {
+        jumlah--;
+        updateTotal();
+      }
+    }
+
+    function applyPromo() {
+      let code = document.getElementById("promoCode").value.toUpperCase();
+      if (code === "HEMAT10") {
+        discount = 10000;
+        showToast("✅ Diskon Rp10.000 aktif! (HEMAT10)", "success");
+      } else if (code === "LIRREAL20") {
+        discount = 20000;
+        showToast("✨ Diskon spesial Rp20.000! (LIRREAL20)", "success");
+      } else if (code === "MYKONOS50") {
+        discount = 50000;
+        showToast("👑 Diskon VIP Rp50.000! (MYKONOS50)", "success");
+      } else {
+        discount = 0;
+        showToast("❌ Kode salah! Coba: HEMAT10, LIRREAL20, MYKONOS50", "error");
+      }
+      updateTotal();
+    }
+
+    function checkout() {
+      let nama = document.getElementById("nama").value;
+      let alamat = document.getElementById("alamat").value;
+
+      if (!nama || !alamat) {
+        showToast("❌ Lengkapi data penerima dulu ya!", "warning");
+        return;
+      }
+
+      let subtotal = item.price * jumlah;
+      let total = subtotal + ongkir - discount;
+
+      let pesan = `🛒 *CHECKOUT L'Irréel Domité*\n\n`;
+      pesan += `👤 *${nama}*\n`;
+      pesan += `📍 *${alamat}*\n\n`;
+      pesan += `✨ *PRODUK:* ${item.name}\n`;
+      pesan += `📦 *Qty:* ${jumlah}x\n`;
+      pesan += `💰 *Harga:* Rp ${item.price.toLocaleString("id-ID")}\n`;
+      pesan += `💵 *Subtotal:* Rp ${subtotal.toLocaleString("id-ID")}\n`;
+      if (discount > 0) pesan += `🎁 *Diskon:* -Rp ${discount.toLocaleString("id-ID")}\n`;
+      pesan += `🚚 *Ongkir:* Rp 10.000\n`;
+      pesan += `═══════════════════════\n`;
+      pesan += `💎 *TOTAL:* Rp ${total.toLocaleString("id-ID")}\n\n`;
+      pesan += `📦 *Packing:* Bubble wrap + Gift box\n`;
+      pesan += `⏰ *Estimasi:* 2-4 hari kerja\n\n`;
+      pesan += `🙏 Terima kasih telah memilih L'Irréel Domité! 💝`;
+
+      let encoded = encodeURIComponent(pesan);
+      window.open(`https://wa.me/6285936561575?text=${encoded}`, "_blank");
+      showToast("✅ Pesanan terkirim ke WhatsApp! Silakan lakukan pembayaran.", "success");
+    }
+  </script>
+</body>
+</html>
